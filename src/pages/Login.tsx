@@ -6,7 +6,7 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
-    clientId: import.meta.env.VITE__CLIENT_ID,
+    clientId: import.meta.env.VITE_CLIENT_ID,
     onSuccess: (tokenResponse: GoogleLoginResponse | GoogleLoginResponseOffline) => {
       console.log(tokenResponse.code);
       alert('123 loggined');
