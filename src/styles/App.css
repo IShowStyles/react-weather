@@ -1,0 +1,27 @@
+html {
+    font-size: 62.5%;
+}
+
+
+.header {
+    background: #1c1a45;
+    color: aliceblue;
+}
+
+.container {
+    max-width: min(90%, 1230px);
+    width: 100%;
+    padding: 0 1.4rem;
+    margin: 0 auto;
+}
+
+
+.google-logo {
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+.google-logo img {
+    width: 100%;
+    height: 100%;
+}
