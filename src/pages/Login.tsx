@@ -24,7 +24,6 @@ const LoginPage: React.FC = () => {
         >
           Sign in
         </button>
-        <p>{import.meta.env}</p>
       </div>
     </div>
   );
