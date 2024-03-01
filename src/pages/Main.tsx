@@ -43,7 +43,7 @@ const MainPage = () => {
 
   const handleScrollTrips = (direction: 'left' | 'right') => {
     if (tripsContainerRef.current !== null) {
-      const scrollPX = direction === 'left' ? -width : width;
+      const scrollPX = direction === 'left' ? -width - 15 : width - 15;
       console.log(scrollPX);
       tripsContainerRef.current.scrollBy({
         behavior: 'smooth',
@@ -92,24 +92,26 @@ const MainPage = () => {
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <CommonButton
-                        onClick={() => {
-                          handleScrollTrips('left');
-                        }}
-                        classes={'btn prev'}
-                        type='button'
-                        text={'Prev'}
-                      />
-                      <CommonButton
-                        onClick={() => {
-                          handleScrollTrips('right');
-                        }}
-                        classes={'btn next'}
-                        type='button'
-                        text={'Next'}
-                      />
-                    </div>
+                    {trips.length >= 3 ? (
+                      <div className='sliders-btns'>
+                        <CommonButton
+                          onClick={() => {
+                            handleScrollTrips('left');
+                          }}
+                          classes={'btn prev'}
+                          type='button'
+                          text={'Prev'}
+                        />
+                        <CommonButton
+                          onClick={() => {
+                            handleScrollTrips('right');
+                          }}
+                          classes={'btn next'}
+                          type='button'
+                          text={'Next'}
+                        />
+                      </div>
+                    ) : null}
                   </div>{' '}
                   <ForecastContainer />
                 </div>

@@ -33,9 +33,11 @@ const MainRight = () => {
         <>
           <div className='main-weather__right--main'>
             <p className='main-weather__right--days'>{day}</p>
-            <p className='main-weather__right--temparature'>
-              {temperature} <sup className='celsius'>&#8451;</sup>
-            </p>
+            {temperature && (
+              <p className='main-weather__right--temparature'>
+                {temperature} <sup className='celsius'>&#8451;</sup>
+              </p>
+            )}
             <p className='main-weather__right--city'>{viewTrip.city}</p>
             <CountdownTimer endDate={viewTrip.endDate} />
           </div>

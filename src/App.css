@@ -266,7 +266,7 @@ label.focused p {
     font-size: 0.6em;
 }
 
-.items-carousel{
+.items-carousel {
     width: 100%;
 }
 
@@ -278,6 +278,8 @@ label.focused p {
     grid-auto-flow: column;
     grid-auto-columns: calc(50% - (var(--gap) / 2));
     overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-padding: var(--gap);
 }
 
 .items-wrapper > * {
@@ -309,7 +311,6 @@ label.focused p {
 .dialog-wrapper {
     border: none;
     position: absolute;
-    top: 18%;
     left: 50%;
     transform: translate(-50%, 18%);
     max-width: 50rem;
@@ -436,6 +437,10 @@ dialog::backdrop {
     width: 63%;
 }
 
+.sliders-btns {
+    margin-top: 1.5rem;
+}
+
 .main__weather-right {
     background: #110e3b;
     color: #efffff;
@@ -443,7 +448,8 @@ dialog::backdrop {
     align-items: center;
     flex-direction: column;
     width: 40%;
-    height: 72rem;
+    min-height: 72rem;
+    height: auto;
     border: 2px solid #212121;
 }
 
@@ -578,15 +584,52 @@ dialog::backdrop {
     line-height: 118%;
 }
 
-.btn{
+.btn {
     border: 2px solid #212121;
-    padding: 1.5rem .5rem ;
-    color:  #212121;
+    padding: 1.5rem .5rem;
+    color: #212121;
     background: #efffff;
     font-size: 1.5em;
     width: 7.5rem;
 }
 
-.btn.prev{
+.btn.prev {
     margin-right: 1.5rem;
+}
+
+
+@media screen and (max-width: 1680px) {
+    html {
+        font-size: 50%;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    html {
+        font-size: 47.5%;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    html {
+        font-size: 44.5%;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    html {
+        font-size: 44.5%;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    html {
+        font-size: 40.5%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 36.5%;
+    }
 }

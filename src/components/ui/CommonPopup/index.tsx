@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { type Trip, useTripStore } from '../../../store/useTripStore.ts';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside.tsx';
 import { CommonSelect } from '../CommonSelect';
@@ -109,6 +109,11 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
       [event.target.name]: selectedCity,
     }));
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [close]);
 
   return (
     <>
