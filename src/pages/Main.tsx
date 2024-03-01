@@ -92,7 +92,7 @@ const MainPage = () => {
                         </div>
                       </div>
                     </div>
-                    {trips.length >= 3 ? (
+                    {trips.length >= 2 ? (
                       <div className='sliders-btns'>
                         <CommonButton
                           onClick={() => {
