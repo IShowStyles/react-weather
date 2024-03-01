@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 type EventType = 'mousedown' | 'mouseup' | 'touchstart' | 'touchend';
 
