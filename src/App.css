@@ -5,6 +5,10 @@ html {
     font-size: 62.5%;
 }
 
+body {
+    position: relative;
+}
+
 *,
 *::after,
 *::before {
@@ -66,6 +70,7 @@ body {
     font-size: 1.6em;
     font-family: "Oswald", sans-serif;
     font-weight: 400;
+    line-height: 112%;
     color: #212121;
 }
 
@@ -76,7 +81,7 @@ body {
 }
 
 .container {
-    max-width: min(90%, 1230px);
+    max-width: min(90%, 128rem);
     width: 100%;
     padding: 0 1.4rem;
     margin: 0 auto;
@@ -105,7 +110,44 @@ body {
     height: 2rem;
 }
 
+/* UI */
+.title {
+    font-weight: 400;
+}
+
+.card-add div > * {
+    font-weight: 600;
+    color: #212121;
+}
+
+.card-add div > span {
+    font-size: 4.5em;
+    line-height: 150%;
+}
+
+.card-add {
+    width: 24.5rem;
+    height: 31rem;
+    background: #c7c6c6;
+    transition: all .3s linear;
+}
+
+.card-add > div {
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title span {
+    font-weight: 500;
+    margin-left: .5rem;
+}
+
+
 .input__wrapper {
+    margin-bottom: 3rem;
     overflow: hidden;
     position: relative;
     min-width: 31.5rem;
@@ -123,9 +165,11 @@ body {
     padding: .5rem;
     border-radius: 1.5rem;
     border: 2px solid #1c1a45;
-    box-shadow: inset 0 0 6px 3px rgba(28, 26, 69, .45);
 }
 
+.main__weather-title {
+    margin-bottom: 2.2rem;
+}
 
 .input__wrapper label {
     display: flex;
@@ -136,6 +180,7 @@ body {
     transform: translateY(-50%);
 }
 
+
 .input__wrapper label span {
     display: inline-block;
     position: sticky;
@@ -145,17 +190,17 @@ body {
 }
 
 .input__wrapper label p {
-    padding-left: 10rem;
+    padding-left: 6rem;
     font-weight: 700;
     line-height: 105%;
-    font-size: 2.2rem;
+    font-size: 1.4em;
 }
 
 .input__inner {
     position: relative;
 }
 
-.input__inner input{
+.input__inner input {
     padding: 0 2.2em;
     width: 100%;
     background: transparent;
@@ -181,4 +226,369 @@ label.focused p {
     visibility: visible;
     transform: translateY(-300%);
     transition: all .3s linear;
+}
+
+.card {
+    font-family: Arial, sans-serif;
+    width: 24.5rem;
+    height: 31rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-image img {
+    width: 100%;
+    height: 16rem;
+    display: block;
+}
+
+.text {
+    font-size: 1.4em;
+}
+
+.wrapper.center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.celsius {
+    position: relative;
+    display: inline-block;
+}
+
+.celsius sup {
+    position: absolute;
+    top: -0.5em;
+    right: -0.3em;
+    font-size: 0.6em;
+}
+
+.items-carousel{
+    width: 100%;
+}
+
+.items-wrapper {
+    --gap: 1.5rem;
+    width: 100%;
+    display: grid;
+    gap: var(--gap);
+    grid-auto-flow: column;
+    grid-auto-columns: calc(50% - (var(--gap) / 2));
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-padding: var(--gap);
+}
+
+.items-wrapper > * {
+    scroll-snap-align: start;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.6rem;
+    height: 45%;
+    text-align: left;
+}
+
+.card-title {
+    text-transform: capitalize;
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.card-dates {
+    margin: .8rem 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.dialog-wrapper {
+    border: none;
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, 18%);
+    max-width: 50rem;
+    width: 100%;
+}
+
+.modal-header__wrapper {
+    border-bottom: 2px solid #c7c6c6;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.modal-header h3 {
+    font-size: 1.3em;
+}
+
+.dialog {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    max-width: 50rem;
+    width: 100%;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 3rem;
+}
+
+
+.modal-footer__wrapper {
+}
+
+.modal-footer {
+    padding: 1rem 3rem;
+    border-top: 2px solid #c7c6c6;
+    display: flex;
+    justify-content: end;
+}
+
+.modal-footer button[type='reset'] {
+    padding: 1rem 2.2rem;
+    font-size: 1.4rem;
+    color: #212121;
+    border: 2px solid #666666;
+    margin-right: .8rem;
+}
+
+.modal-footer button[type='submit'] {
+    padding: 1rem 2.2rem;
+    font-size: 1.4rem;
+    color: #efffff;
+    background: #1b43b6;
+}
+
+
+.select {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.select label {
+
+    margin-bottom: 3rem;
+}
+
+.select label span {
+    color: crimson;
+}
+
+.modal-body {
+    padding: 1.8rem;
+    margin-top: 3rem;
+}
+
+.close {
+    font-size: 2em;
+    color: #c7c6c6;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100vh;
+}
+
+.overlay:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(147, 147, 147, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.main-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-wrapper {
+    display: flex;
+    gap: 2.75rem;
+}
+
+.weather-left {
+    width: 63%;
+}
+
+.main__weather-right {
+    background: #110e3b;
+    color: #efffff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 40%;
+    height: 72rem;
+    border: 2px solid #212121;
+}
+
+.main-weather__right--main {
+    display: flex;
+    margin: auto 0;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-weather__right--header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.main-weather__right--header.loading {
+    max-width: 100%;
+    height: 72rem;
+}
+
+.main-weather__right--img {
+    position: absolute;
+    top: .9rem;
+    right: .9rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    padding: .4rem;
+    background: teal;
+    border-radius: 50%;
+}
+
+.main-weather__right--img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.main-weather__right--temparature {
+    margin: 1.5rem 0;
+}
+
+.main-weather__right--city {
+    margin: 1.2rem 0 2.25rem 0;
+}
+
+.main-left {
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forecast-container {
+    --gap: 1.8rem;
+    width: 100%;
+    display: grid;
+    margin-top: 5.5rem;
+    gap: var(--gap);
+    grid-auto-flow: column;
+    grid-auto-columns: calc(40% - (var(--gap) / 2));
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-padding: var(--gap);
+}
+
+.forecast-container > * {
+    scroll-snap-align: start;
+}
+
+.weather-card {
+    max-width: 22rem;
+    width: 100%;
+}
+
+.weather-card__inner {
+    padding: 2.5rem 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    width: 30rem;
+    gap: 2.75rem
+}
+
+.timer {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-weather__right--temparature {
+    font-size: 1.6em;
+}
+
+.main {
+    padding-top: 12rem;
+}
+
+.main-weather__right--days {
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+.weather-card__inner--temperature {
+    font-size: 1.8rem;
+}
+
+.main-weather__right--city {
+    font-size: 1.7em;
+    text-transform: capitalize;
+}
+
+.weather-card__inner--date {
+    font-size: 1.4em;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.timer p {
+    font-size: 1.4em;
+    text-transform: capitalize;
+    line-height: 118%;
+}
+
+.btn{
+    border: 2px solid #212121;
+    padding: 1.5rem .5rem ;
+    color:  #212121;
+    background: #efffff;
+    font-size: 1.5em;
+    width: 7.5rem;
+}
+
+.btn.prev{
+    margin-right: 1.5rem;
 }
