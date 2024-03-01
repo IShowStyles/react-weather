@@ -278,8 +278,6 @@ label.focused p {
     grid-auto-flow: column;
     grid-auto-columns: calc(50% - (var(--gap) / 2));
     overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    scroll-padding: var(--gap);
 }
 
 .items-wrapper > * {

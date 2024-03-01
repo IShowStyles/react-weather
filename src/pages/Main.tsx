@@ -34,6 +34,7 @@ const MainPage = () => {
   useEffect(() => {
     if (tripsElems.current === null) return;
     const setW = () => setWidth(getWidthDom(tripsElems.current!));
+    setW();
     window.addEventListener('resize', setW);
     return () => {
       window.removeEventListener('resize', setW);
@@ -42,10 +43,11 @@ const MainPage = () => {
 
   const handleScrollTrips = (direction: 'left' | 'right') => {
     if (tripsContainerRef.current !== null) {
-      const scrollPX = direction === 'left' ? -(width / trips.length) * 5 : width / trips.length;
+      const scrollPX = direction === 'left' ? -width : width;
+      console.log(scrollPX);
       tripsContainerRef.current.scrollBy({
-        left: scrollPX,
         behavior: 'smooth',
+        left: scrollPX,
       });
     }
   };
@@ -73,10 +75,10 @@ const MainPage = () => {
                   <div className='items-carousel'>
                     <div
                       ref={tripsContainerRef}
+                      className='items-wrapper'
                       style={{
                         gridAutoColumns: `calc(34% - (var(--gap) / ${trips.length + 1}))`,
                       }}
-                      className='items-wrapper'
                     >
                       <TripsContainer ref={tripsElems} searchQuery={searchQuery} trips={trips} />
                       <div className='card-add'>

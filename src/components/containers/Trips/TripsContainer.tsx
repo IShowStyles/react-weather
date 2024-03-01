@@ -30,7 +30,6 @@ function formatCityToCamelCase(city: string): string {
 
 const nameToImage = (name: string): string => {
   const formattedName = formatCityToCamelCase(name);
-  alert(formattedName);
   if (isCityKey(formattedName)) {
     return cities[formattedName as CityKeys]!;
   } else {
