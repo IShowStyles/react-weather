@@ -37,12 +37,16 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
     const startDateObj = new Date(form.startDate);
     const endDateObj = new Date(form.endDate);
 
+    if (!form.endDate) {
+      newValidationMessage.endDate = 'Please select a valid end date.';
+      isValid = false;
+    }
+
     if (form.endDate && (!form.startDate || endDateObj <= startDateObj)) {
       newValidationMessage.endDate = 'Please select a valid end date that is after the start date.';
       isValid = false;
     }
 
-    // check if trip exist with same date
     const isExistTrip = trips.filter(({ city, startDate, endDate }: Trip) => {
       console.log(form, 'form');
       console.log({ city, startDate, endDate }, 'filter');
