@@ -5,6 +5,7 @@ export interface ICommonSelect {
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   errorMsg: string;
   name: string;
+  label: string;
 }
 
 const CommonSelect: FC<ICommonSelect> = ({ options, name, errorMsg, onChange }) => {

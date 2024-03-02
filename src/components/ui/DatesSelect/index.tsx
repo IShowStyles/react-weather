@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { CommonSelect, ICommonSelect } from '../CommonSelect';
 
-type DatesSelectType = Pick<ICommonSelect, 'onChange' | 'errorMsg' | 'name'>;
+type DatesSelectType = Pick<ICommonSelect, 'onChange' | 'label' | 'errorMsg' | 'name'>;
 
 interface IDatesSelect extends DatesSelectType {
   datesFn: () => string[];

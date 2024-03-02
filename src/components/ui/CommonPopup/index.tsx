@@ -131,18 +131,21 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
               </div>
               <div className='modal-body'>
                 <CommonSelect
+                  label={'City'}
                   name={'city'}
                   options={cityNames}
                   onChange={handleSelectChange}
                   errorMsg={validationMessage.city}
                 />
                 <DatesSelect
+                  label={'Start Date'}
                   name={'startDate'}
                   datesFn={generateDates}
                   onChange={handleSelectChange}
                   errorMsg={validationMessage.startDate}
                 />{' '}
                 <DatesSelect
+                  label={'End Date'}
                   name={'endDate'}
                   datesFn={generateDates}
                   onChange={handleSelectChange}
