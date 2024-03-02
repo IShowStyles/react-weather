@@ -8,15 +8,15 @@ export interface ICommonSelect {
   label: string;
 }
 
-const CommonSelect: FC<ICommonSelect> = ({ options, name, errorMsg, onChange }) => {
+const CommonSelect: FC<ICommonSelect> = ({ options, label, name, errorMsg, onChange }) => {
   return (
     <div className='select'>
       <label htmlFor='city'>
-        <span>*</span> City
+        <span>*</span> {label}
       </label>
       {errorMsg && <div className='error-message'>{errorMsg}</div>}
       <select id='city' onChange={onChange} name={name}>
-        <option value=''>Please select a city</option>
+        <option value=''>Please select a {name}</option>
         {options.map((elem, idx) => (
           <option key={idx} value={elem.toString()}>
             {elem}
