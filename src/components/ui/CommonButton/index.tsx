@@ -5,10 +5,11 @@ interface IPopupButton {
   type: 'reset' | 'submit' | 'button';
   classes: string;
   text: string;
+  dissabled?: boolean;
 }
 
-const CommonButton: FC<IPopupButton> = ({ onClick, text, classes, type }) => (
-  <button type={type} className={classes} onClick={onClick}>
+const CommonButton: FC<IPopupButton> = ({ onClick, dissabled, text, classes, type }) => (
+  <button type={type} className={classes} disabled={dissabled} onClick={onClick}>
     {text}
   </button>
 );

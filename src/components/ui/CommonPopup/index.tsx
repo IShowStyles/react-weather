@@ -1,9 +1,18 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
-import { type Trip, useTripStore } from '../../../store/useTripStore.ts';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { Trip, useTripStore } from '../../../store/useTripStore.ts';
 import { useOnClickOutside } from '../../../hooks/useOnClickOutside.tsx';
 import { CommonSelect } from '../CommonSelect';
 import { DatesSelect } from '../DatesSelect';
 import { CommonButton } from '../CommonButton';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+export interface IFormData {
+  city: string;
+  endDate: string;
+  startDate: string;
+}
 
 const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -14,73 +23,55 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
   });
 
   const refPopup = useOnClickOutside<HTMLDialogElement>(close);
-  const [validationMessage, setValidationMessage] = useState({
-    city: '',
-    startDate: '',
-    endDate: '',
-  });
   const { trips, addTrip } = useTripStore();
 
-  const validateForm = () => {
-    let isValid = true;
-    const newValidationMessage = { city: '', startDate: '', endDate: '' };
+  const schema = z.object({
+    city: z.string().min(1, { message: 'City is required.' }),
+    startDate: z.string().min(1, { message: 'Please choose correct start trip date' }),
+    endDate: z.string().min(1, { message: 'Please choose correct end trip date' }),
+  });
 
-    if (!form.city) {
-      newValidationMessage.city = 'Please select a city.';
-      isValid = false;
-    }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    clearErrors,
+    formState: { errors },
+    setError,
+  } = useForm<IFormData>({
+    resolver: zodResolver(schema),
+    mode: 'onBlur',
+  });
 
-    if (!form.startDate) {
-      newValidationMessage.startDate = 'Please select a start date.';
-      isValid = false;
-    }
+  const onSubmit = (data: IFormData) => {
     const startDateObj = new Date(form.startDate);
     const endDateObj = new Date(form.endDate);
 
-    if (!form.endDate) {
-      newValidationMessage.endDate = 'Please select a valid end date.';
-      isValid = false;
-    }
-
     if (form.endDate && (!form.startDate || endDateObj <= startDateObj)) {
-      newValidationMessage.endDate = 'Please select a valid end date that is after the start date.';
-      isValid = false;
-    }
-
-    const isExistTrip = trips.filter(({ city, startDate, endDate }: Trip) => {
-      console.log(form, 'form');
-      console.log({ city, startDate, endDate }, 'filter');
-      return form.city === city && startDate === form.startDate && endDate === form.endDate;
-    });
-    // handle same trip
-    if (isExistTrip.length) {
-      setValidationMessage({
-        ...validationMessage,
-        city: 'Trip with date already exist!',
+      setError('endDate', {
+        type: 'custom',
+        message: 'Please select a valid end date that is after the start date.',
       });
       return false;
     }
-    setValidationMessage(newValidationMessage);
-    return isValid;
-  };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (validateForm()) {
-      alert('added city ' + form.city);
-      console.log('Form is valid, submitting...');
-      formRef?.current?.reset();
-      setValidationMessage({ city: '', startDate: '', endDate: '' });
-      console.log(form, 'form');
-      addTrip({
-        ...form,
-        city: form.city.toLowerCase(),
-      });
-      close();
-    } else {
-      console.log('Form is invalid, please correct the errors.');
-      alert('Smth went wrong!');
+    console.log(trips);
+
+    const isExistTrip = trips.filter(({ city, startDate, endDate }: Trip) => {
+      return data.city === city && startDate === data.startDate && endDate === data.endDate;
+    });
+    console.log(isExistTrip);
+    if (isExistTrip.length) {
+      console.log(12121212);
+      setError('endDate', { type: 'custom', message: 'A trip with the same dates and city already exists.' });
+      return false;
     }
+    addTrip({
+      city: data.city.toLowerCase(),
+      startDate: data.startDate,
+      endDate: data.endDate,
+    });
+    closePopup();
   };
 
   const cityNames: string[] = [
@@ -106,6 +97,12 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
     return dates;
   };
 
+  const closePopup = () => {
+    reset();
+    close();
+    clearErrors();
+  };
+
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedCity = event.target.value;
     setForm((prevForm) => ({
@@ -124,7 +121,13 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
       {isOpen && (
         <div className='overlay'>
           <dialog ref={refPopup} open={isOpen} className='dialog-wrapper'>
-            <form ref={formRef} className='dialog' id={'modal-form'} onSubmit={handleSubmit} method='dialog'>
+            <form
+              ref={formRef}
+              className='dialog'
+              id={'modal-form'}
+              onSubmit={handleSubmit(onSubmit)}
+              method='dialog'
+            >
               <div className='modal-header__wrapper'>
                 <div className='modal-header'>
                   <h3>Create trip</h3>
@@ -135,25 +138,28 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
               </div>
               <div className='modal-body'>
                 <CommonSelect
+                  register={register}
                   label={'City'}
                   name={'city'}
                   options={cityNames}
                   onChange={handleSelectChange}
-                  errorMsg={validationMessage.city}
+                  errorMsg={errors.city?.message!}
                 />
                 <DatesSelect
+                  register={register}
                   label={'Start Date'}
                   name={'startDate'}
                   datesFn={generateDates}
                   onChange={handleSelectChange}
-                  errorMsg={validationMessage.startDate}
+                  errorMsg={errors.startDate?.message!}
                 />{' '}
                 <DatesSelect
+                  register={register}
                   label={'End Date'}
                   name={'endDate'}
                   datesFn={generateDates}
                   onChange={handleSelectChange}
-                  errorMsg={validationMessage.endDate}
+                  errorMsg={errors.endDate?.message!}
                 />
               </div>
               <div className='modal-footer__wrapper'>
@@ -161,16 +167,12 @@ const CommonPopup = ({ isOpen, close }: { isOpen: boolean; close: () => void }) 
                   <CommonButton
                     text={'Cancel'}
                     onClick={() => {
-                      setValidationMessage({
-                        city: '',
-                        endDate: '',
-                        startDate: '',
-                      });
                       setForm({
                         city: '',
                         startDate: '',
                         endDate: '',
                       });
+                      closePopup();
                     }}
                     type={'reset'}
                     classes={'cancel'}
